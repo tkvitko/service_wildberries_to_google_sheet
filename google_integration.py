@@ -17,7 +17,7 @@ def add_to_sheet(data):
     # Dev-таблица
     # SPREADSHEET_ID = '1z3FWhfV9pOSJ2qViqZdwRBoL30bI1a9HmIIHYqyJ8GI'
     # Таблица заказчика
-    SPREADSHEET_ID = '1jhjGy8wMhK8ymGtcYlRn5zqDIyHwQXsz_GYoDdzBcmQ'
+    SPREADSHEET_ID = ''
     # Как показала практика, этот range непринципиален (главное, чтобы был валидным по синтаксису):
     RANGE_NAME = 'A1:B3'
 
