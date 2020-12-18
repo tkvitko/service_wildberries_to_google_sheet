@@ -6,15 +6,16 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 import logging
+
 logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR)
 
-def add_to_sheet(data):
 
+def add_to_sheet(data):
     # If modifying these scopes, delete the file token.pickle.
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
     # Dev-таблица
-    #SPREADSHEET_ID = '1z3FWhfV9pOSJ2qViqZdwRBoL30bI1a9HmIIHYqyJ8GI'
+    # SPREADSHEET_ID = '1z3FWhfV9pOSJ2qViqZdwRBoL30bI1a9HmIIHYqyJ8GI'
     # Таблица заказчика
     SPREADSHEET_ID = '1jhjGy8wMhK8ymGtcYlRn5zqDIyHwQXsz_GYoDdzBcmQ'
     # Как показала практика, этот range непринципиален (главное, чтобы был валидным по синтаксису):
@@ -56,5 +57,7 @@ def add_to_sheet(data):
 
 
 if __name__ == '__main__':
+
+    # Тестирование
     values_to_add = [['Next', 'Nexxxxxt'], ['Bruce', 'Willis']]
     add_to_sheet(values_to_add)

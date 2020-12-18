@@ -5,7 +5,7 @@ import configparser
 from datetime import datetime
 
 
-def api_quest():
+def api_request():
     # Чтение конфига
     config = configparser.ConfigParser()  # создаём объекта парсера
     config.read("config.ini")  # читаем конфиг
@@ -31,7 +31,8 @@ def api_quest():
             with open('from_datetime', 'w') as f:
                 f.write(time_now_iso)
         else:
-            print(f'Запрос не прошел, слишком частые попытки, попробуйте позже: HTTP {response.status_code}, {response.url}')
+            print(
+                f'Запрос не прошел, слишком частые попытки, попробуйте позже: HTTP {response.status_code}, {response.url}')
 
     except ConnectionError:
         print('Ошибка подключения')
