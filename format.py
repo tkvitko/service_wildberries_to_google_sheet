@@ -1,5 +1,6 @@
 def format_to_google(data):
-    # Преобразование списка словарей, полученного из API, в список списков
+    """Transform this dicts from API to list of lists"""
+
     values_to_add = []
 
     for item in data:

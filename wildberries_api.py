@@ -1,29 +1,33 @@
-import requests
-import logging
 import configparser
-
+import logging
 from datetime import datetime
+
+import requests
+
+
+CONFIG_FILE = 'config.ini'
+DATE_STORE_FILE = 'from_datetime'
+BASE_URL = 'https://suppliers-stats.wildberries.ru/api/v1/supplier/sales?'
 
 
 def api_request():
-    # Чтение конфига
-    config = configparser.ConfigParser()  # создаём объекта парсера
-    config.read("config.ini")  # читаем конфиг
+    """Requesting the wildberries API"""
+
+    # Loading date from config file
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE)
     api_key_base64 = (config["keys"]["api_key_base64"])
 
-    base_url = 'https://suppliers-stats.wildberries.ru/api/v1/supplier/sales?'
-
-    # Получение даты из файла:
-    with open('from_datetime', 'r') as f:
+    # Getting date from file:
+    with open(DATE_STORE_FILE) as f:
         date_from = f.read()
 
-    # Выполнение запроса
+    # Making API request
     data = []
-
     try:
         logging.basicConfig(level=logging.DEBUG)
         response = requests.get(
-            f'{base_url}dateFrom={date_from}&key={api_key_base64}', timeout=10)
+            f'{BASE_URL}dateFrom={date_from}&key={api_key_base64}', timeout=10)
         if response.status_code == 200:
             data = response.json()
             time_now = datetime.now()
@@ -32,11 +36,11 @@ def api_request():
                 f.write(time_now_iso)
         else:
             print(
-                f'Запрос не прошел, слишком частые попытки, попробуйте позже: HTTP {response.status_code}, {response.url}')
+                f'Cant request, try again later: HTTP {response.status_code}, {response.url}')
 
     except ConnectionError:
-        print('Ошибка подключения')
+        print('Connection error')
 
     if data:
-        print(f'Получено новых элементов: {len(data)}')
+        print(f'Number of elements reached: {len(data)}')
         return data
